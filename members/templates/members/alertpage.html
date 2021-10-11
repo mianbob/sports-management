@@ -1,0 +1,98 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Expired Page{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/alertpage.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.js.js' %}"></script>
+
+<script type="text/javascript">
+
+{% if alert %}
+    alert('{{alert}}')
+    {% endif %}
+</script>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+<center>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>The Page You Are Trying Is Expired</h1>
+    <a href="{% url 'members:home' %}">Return Back To Home</a>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</center>
+        </div> <!-- ./container -->
+
+{% endblock %}

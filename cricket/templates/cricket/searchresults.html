@@ -1,0 +1,165 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Event{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/event-display.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+{% endblock %}
+{% block content %}
+<br/><br/><br/><br/>
+
+ <div class="container">
+     <br>
+     <br>
+     <br>
+     <br>
+     <form class="/cricket/searchevent/" method="POST">
+         {% csrf_token %}
+     <div class="row">
+<center>
+             <input type="text" required placeholder="Search Event" name="eventname"/>
+
+             <button type="submit" >Search</button>
+        </center>
+     </div>
+         </form>
+
+ <div class="table-responsive">
+
+
+
+<center>
+    {% if message %}
+    <h2>{{message}}</h2>
+    {% endif %}
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{% if cricketevent %}
+    <h2>Cricket Events</h2>
+ <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="20%" >Event Name</th>
+        <th width="15%" >Sports Category</th>
+        <th width="20%">Deadline</th>
+		<th width="25%">Venue</th>
+	    {% if user.is_staff %}<th>Edit</th>
+	    <th>Team Approv</th>
+	    <th>Add Schedule</th>
+          {% endif %}
+        <th>View Schedule</th>
+      </tr>
+    </thead>
+     {% for select in cricketevent %}
+    <tbody>
+    <tr>
+        <td>{{select.name}}</td>
+        <td>Cricket</td>
+        <td>{{select.deadlineforregistration}}</td>
+		<td>{{select.venue1}}</td>
+
+
+        {% if user.is_staff %}
+        <td>
+		<div class="form-group">
+            <label class="col-md-2 control-label" for="Edit"></label>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" data-target="#myModal" value="{{select.id}}">Edit Events</button>
+
+                 <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                 <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Events</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+                    <label for="Match" class="col-sm-2 control-label"> Name:</label>
+                    
+                <div class="col-sm-4">
+                     
+					<input type="Text" id="EName" placeholder="" class="form-control">
+						
+                    </div>
+						  <label for="Vs" class="col-sm-2 control-label">Category</label>
+					 <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Category</option>
+                            <option>Cricket</option>
+                            <option>Football</option>
+                           
+                        </select>
+                    </div>
+					
+				</div>
+				
+				   <div class="form-group" >
+				   
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="date" id="EDate" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-2 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="EVenue" placeholder="Venue" class="form-control">
+                    </div>
+                       <input type="text" value="" style="display:none;" id="hiddenid">
+		</div>
+	
+        </div>
+		
+        <br>
+		<br>
+		
+               
+		
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md save" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  </div>
+</div></td>
+<td>    <div class="col-md-12">
+    <a href="{% url 'cricket:clubapproval' select.id %}"><input type="button" value="Team Approval" class="btn btn-success"></a>
+
+
+  </div></td>
+<td>   <div class="col-md-12">
+    <a href="{% url 'cricket:mmmm' select.id %}"><input type="button" value="Match Schedule" class="btn btn-success"></a>
+
+  </div> </td>
+        {% endif %}
+
+
+        <td>   <div class="col-md-12">
+    <a href="{% url 'cricket:tournament' select.id %}"><input type="button" value="View Schedule" class="btn btn-success"></a>
+
+  </div> </td>
+
+      </tr>
+	</tbody>
+     {% endfor %}
+</table>
+{% endif %}
+</center>
+  </div>
+  </div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{% endblock %}

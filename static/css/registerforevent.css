@@ -1,0 +1,43 @@
+{% load static %}
+*[role="form"] {
+    max-width: 900px;
+	max-height:1100px;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 0.3em;
+    margin-top:40px;
+    margin-bottom:40px;
+}
+
+*[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+}
+
+body, html{
+
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-image: url("/static/images/registration.jpg");
+ 	font-family: 'Oxygen', sans-serif;
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;tr:nth-child(even) {
+  }

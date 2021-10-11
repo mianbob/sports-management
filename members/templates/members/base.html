@@ -1,0 +1,199 @@
+{% load static %}
+<html>
+
+<head>
+<meta charset="utf-8"/>
+<title>{% block title %}{% endblock %} </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	{% comment %} <link rel="stylesheet" href="{% static 'css/headerfooter.css' %}"> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
+	{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> {% endcomment %}
+  	{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'Custom/css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'Custom/css/icomoon.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'Custom/css/bootstrap.css' %}">
+	<!-- Superfish -->
+	<link rel="stylesheet" href="{% static 'Custom/css/superfish.css' %}">
+
+	<link rel="stylesheet" href="{% static 'Custom/css/style.css' %}">
+
+
+	<!-- Modernizr JS -->
+	<script src="{% static 'Custom/js/modernizr-2.6.2.min.js' %}"></script>
+		<script src="{% static 'Custom/js/jquery.min.js' %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{% static 'Custom/js/jquery.easing.1.3.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static 'Custom/js/bootstrap.min.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static 'Custom/js/jquery.waypoints.min.js' %}"></script>
+	<!-- Stellar -->
+	<script src="{% static 'Custom/js/jquery.stellar.min.js' %}"></script>
+	<!-- Superfish -->
+	<script src="{% static 'Custom/js/hoverIntent.js' %}"></script>
+	<script src="{% static 'Custom/js/superfish.js' %}"></script>
+
+	<!-- Main JS (Do not remove) -->
+	<script src="{% static 'Custom/js/main.js' %}"></script>
+
+
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> {% endcomment %}
+
+
+{% comment %} <script>
+	$(document).ready(function(){
+		var showHeaderAt = 150;
+		var win = $(window),
+				body = $('body');
+		if(win.width() > 400){
+			win.on('scroll', function(e){
+				if(win.scrollTop() > showHeaderAt) {
+					body.addClass('fixed');
+				}
+				else {
+					body.removeClass('fixed');
+				}
+			});
+		}
+	});
+</script> {% endcomment %}
+
+
+
+{% comment %} <style>
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+</style> {% endcomment %}
+	{% block stylesheet %}{% endblock %}
+	{% block javascript %}{% endblock %}
+</head>
+<body>
+
+<div id="fh5co-wrapper" >
+		<div id="fh5co-page">
+		<div id="fh5co-header" >
+			<header id="fh5co-header-section" class="temp" style='background-color:#222831;'>
+				<div class="container">
+					<div class="nav-header">
+						<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+						<h1 id="fh5co-logo"><a href="{% url 'members:home' %}">GC<span>Sports</span></a></h1>
+						<!-- START #fh5co-menu-wrap -->
+						<nav id="fh5co-menu-wrap" role="navigation">
+							<ul class="sf-menu" id="fh5co-primary-menu">
+								<li class=''><a href="{% url 'members:home' %}">Home</a></li>
+								<li><a href="{% url 'cricket:eventdisplay' %}">Events</a></li>
+								<li><a href="{% url 'cricket:noticedisplay' %}">Notices</a></li>
+								<li><a href="{% url 'cricket:searchevent' %}">Search</a></li>
+								{% if user.is_authenticated %}
+								{% if user.is_cricket_team %}
+								<li><a href="{% url 'members:registerforevent' %}">Registration Of Event</a></li>
+								{% endif %}
+								{% endif %}
+								{% if user.is_authenticated %}
+									{% if user.is_staff %}
+										<li><a href="{% url 'members:createevent' %}">Create Event</a></li>
+										<li><a href="{% url 'members:scorersignup' %}">Create Scorer</a></li>
+										<li><a href="{% url 'members:notice' %}">Create Notice</a></li>
+										<li><a href="{% url 'members:queries' %}">Queries</a></li>
+									{% endif %}
+								{% endif %}
+								{% if user.is_authenticated %}
+									{% if user.is_cricket_team %}
+										<li><a href="{% url 'members:teamprofile' %}">Profile</a></li>
+										<li><a href="{% url 'members:notifications' user.id %}">Notifications</a></li>
+									{% endif %}
+								<li><a href="{% url 'members:logout' %}">Logout</a></li>
+								{% else %}
+								<li><a href="{% url 'members:login' %}">Login</a></li>
+								<li><a href="{% url 'members:cricketteamsignup' %}">Signup</a></li>
+								{% endif %}
+								<li><a href="{% url 'members:training' %}">Training</a></li>								
+								<li><a href="{% url 'members:askquery' %}">Ask Query</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</header>		
+		</div>
+<div class="container-fluid">
+{% block content %}
+{% endblock %}
+</div>
+		
+		
+
+<footer>
+			<div id="footer">
+				<div class="container">
+					<div class="row copy-right">
+						<div class="col-md-6 col-md-offset-3 text-center">
+							<p class="fh5co-social-icons">
+								<a href="#"><i class="icon-twitter2"></i></a>
+								<a href="#"><i class="icon-facebook2"></i></a>
+								<a href="#"><i class="icon-instagram"></i></a>
+								<a href="#"><i class="icon-dribbble2"></i></a>
+								<a href="#"><i class="icon-youtube"></i></a>
+							</p>
+							<p>Copyright 2021. All Rights Reserved. <br></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	
+		
+</body>
+</html>

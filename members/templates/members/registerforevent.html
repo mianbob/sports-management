@@ -1,0 +1,78 @@
+{% extends 'members/base.html' %}
+{% load static %}
+
+{% block title %}Register For Event{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/registerforevent.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+<script type="text/javascript">
+
+{% if alert %}
+    alert('{{alert}}')
+    {% endif %}
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+<center>
+            <form class="form-horizontal" role="form" action="/members/registered/" method="POST">
+			{% csrf_token %}
+                <div class="well well-sm" ><h1> Registeration Form</h1></div>
+				<div class="well">
+                    {% if currentevent %}
+                    <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Event Name</label>
+                    <div class="col-sm-9">
+                        <select id="eventname" class="form-control" name="evename">
+                            <option>{{ currentevent.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                    {% endif %}
+
+
+                <div class="form-group" >
+				  
+                    <label for="TeamName" class="col-sm-3 control-label">Team Name:</label>
+                    <div class="col-sm-9">
+                        <select id="eventname" class="form-control" name="teamname">
+                            <option>{{ team.teamname }}</option>
+                        </select>
+                    </div>
+                
+				</div>
+
+			 <div class="form-group">
+                    <label for="cemail" class="col-sm-3 control-label"> Current Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="email">
+                    </div>
+                </div>
+
+				<div class="form-group">
+                    <label for="Contact" class="col-sm-3 control-label"> Contact No</label>
+                    <div class="col-sm-9">
+                        <input type="Tel" name="contact" required pattern="[0][3][0-9]{9}$" placeholder=" Contact No" class="form-control">
+                    </div>
+                </div>
+
+						<center>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-block">Register For Event</button>
+                    </div>
+                </div>
+				</center>
+                </div>
+            </form> <!-- /form -->
+</center>
+        </div> <!-- ./container -->
+
+{% endblock %}

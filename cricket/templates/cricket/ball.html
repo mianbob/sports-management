@@ -1,0 +1,515 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Match Statistics Entry{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+ <script type="text/javascript">
+ {% if ballno == 1 %}alert("Please Select Bowler First");{% endif %}
+$(document).ready(function(){
+$(".score1").click(function(){
+          $(".a1").show();
+          $(".a2").hide();
+          $(".a3").hide();
+          $(".a4").hide();
+          $(".a5").hide();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+$(".extras").click(function(){
+          $(".a2").show();
+          $(".a1").hide();
+          $(".a3").hide();
+          $(".a4").hide();
+          $(".a5").hide();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").hide();
+          $(".btn").hide();
+          });
+$(".wicket").click(function(){
+          $(".a3").hide();
+          $(".a2").hide();
+          $(".a1").hide();
+          $(".a4").hide();
+          $(".a5").show();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").hide();
+          $(".btn").hide();
+          });
+$(".b1").click(function(){
+          $(".a3").show();
+          $(".a2").show();
+          $(".a1").hide();
+          $(".a4").hide();
+          $(".a5").hide();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+$(".b2").click(function(){
+          $(".a3").hide();
+          $(".a2").show();
+          $(".a1").hide();
+          $(".a4").show();
+          $(".a5").hide();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+$(".b3").click(function(){
+          $(".a3").hide();
+          $(".a2").show();
+          $(".a1").hide();
+          $(".a4").hide();
+          $(".a5").hide();
+          $(".a6").hide();
+          $(".a7").hide();
+          $(".a8").hide();
+          $(".a15").show();
+          $(".btn").show();
+          });
+$(".d1").click(function(){
+          $(".a5").show();
+          $(".a2").hide();
+          $(".a1").hide();
+          $(".a4").hide();
+          $(".a3").hide();
+          $(".a2").hide();
+          $(".a6").hide();
+          $(".a8").hide();
+          $(".a7").show();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+$(".d2").click(function(){
+          $(".a5").show();
+          $(".a2").hide();
+          $(".a1").hide();
+          $(".a8").show();
+          $(".a3").hide();
+          $(".a4").hide();
+          $(".a7").hide();
+          $(".a6").hide();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+$(".d3").click(function(){
+          $(".a5").show();
+          $(".a2").hide();
+          $(".a1").hide();
+          $(".a6").show();
+          $(".a3").hide();
+          $(".a4").hide();
+          $(".a8").hide();
+          $(".a7").hide();
+          $(".a15").hide();
+          $(".btn").show();
+          });
+         });
+
+
+$(document).on('submit','#newBall',function(e){
+    e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '/cricket/ballentry/',
+        data: {
+          selectedtype:$('.selectedtype:checked').val(),
+          scorerun:$('.scorerun:checked').val(),
+          scorebat:$('#scorebat').val(),
+          extrafirst:$('.extrafirst:checked').val(),
+          extrabye:$('.extrabye:checked').val(),
+          extrawide:$('.extrawide:checked').val(),
+          extranobat:$('#extranobat').val(),
+          extranorun:$('.extranorun:checked').val(),
+          wicketype:$('.wicketype:checked').val(),
+          wicketrunoutbat:$('#wicketrunoutbat').val(),
+          wicketrunoutball:$('#wicketrunoutball').val(),
+          wicketcatbat:$('#wicketcatbat').val(),
+          wicketcatball:$('#wicketcatball').val(),
+          wicketbat:$('#wicketbat').val(),
+          matchid:$('#matchid').val(),
+          bowler:$('#bowler').val(),
+
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("success");
+        e.preventDefault();
+        alert(data.message);
+        window.location.reload(true);
+        }
+      });
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+ <div class="container">
+ 
+ <div class="well"><center><h2>ScoreCard Sheet</h2></center></div>
+ 
+ <h2><center> Ball to Ball Entry</center></h2>
+     <form class="form-inline" role="form" action="/cricket/finishinnings/" method="POST">
+         {% csrf_token %}
+         <div class="row button-box">
+                                <div class="col-lg-2 col-sm-4 col-xs-12">
+
+                                </div>
+                                <div class="col-lg-4 col-sm-4 col-xs-12">
+                                    <label style="font-size:18px;">INNINGS: {% if match.status == 'pending' %}1st INNINGS{% else %}{{match.status}}{% endif %}</label>
+
+                                </div>
+
+                                <div class="col-lg-2 col-sm-4 col-xs-12">
+
+                                </div>
+                                <div class="col-lg-2 col-sm-4 col-xs-12">
+                                    <input type="text" id="matchid" value="{{match.id}}" name="matchid" style="display:none;"/>
+
+                                </div>
+                                <div class="col-lg-2 col-sm-4 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-info">Finish Both Innings</button>
+                                    </div>
+                            </div>
+                    </form>
+
+ <hr>
+
+
+ 
+  
+  <form class="form-inline" role="form" action="/cricket/entryofball/" id="newBall">
+  {% csrf_token %}
+   <div class="form-group">
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 
+                <label for="Ball" >Select Overs:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="Ball" class="form-control input-md">
+                           <option>{{overno}}</option>
+
+                        </select>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+
+
+                <label for="Ball" >Select Bowler:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="bowler" class="form-control input-md">
+                            {% if bowlername != "" %}
+                            <option>{{bowlername}}</option>
+                            {% else %}
+                            {% if match.status != 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                            {% endif %}
+                        </select>
+				</div>
+				<br>
+				<br>
+   <div class="form-group">
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 
+                <label for="Ball" >Select Ball:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="Ball" class="form-control input-md">
+                           <option>{{ballno}}</option>
+                        </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+				     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 &nbsp;&nbsp;&nbsp;
+
+
+                   <label class="radio-inline"><input class="score1 selectedtype" type="radio" name="selectedtype" value="1">Socre</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input class="extras selectedtype" type="radio" name="selectedtype" value="2">Extras</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input class="wicket selectedtype" type="radio" name="selectedtype" value="3">Wicket</label>
+
+				  
+				   
+				</div>
+				  <br>
+				  <br>
+     <div style="display:none;" class="form-group a1">
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 
+                <label for="Ball" >Batsman Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="scorebat" class="form-control input-md">
+                            {% if match.status == 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="0">0 Run</label>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="1">1 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="2">2 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="3">3 run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="4"> 4 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="scorerun" class="scorerun" value="6">6 run</label>
+				  
+				   
+				</div>
+     <div class="form-group a2" style="display:none;" >
+
+
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;
+      <label for="Ball" >Select Type:</label>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline b1"><input type="radio"  name="extrafirst" class="extrafirst" value="1">Byes</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline b2"><input type="radio" name="extrafirst" class="extrafirst" value="2">NoBall</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline b3"><input type="radio" name="extrafirst" class="extrafirst" value="3">Wide</label>
+				</div>
+   <div class="form-group a3" style="display:none;" >
+    <br>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                   <label for="Ball">Select Run If Any:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+
+				   <label class="radio-inline"><input type="radio" name="extraby" class="extrabye" value="0">0 Run</label>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <label class="radio-inline"><input type="radio" name="extraby" class="extrabye" value="1">1 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extraby" class="extrabye" value="2">2 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extraby" class="extrabye" value="3">3 run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    <label class="radio-inline c1"><input type="radio" name="extraby" class="extrabye" value="4"> 4 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline c1"><input type="radio" name="extraby" class="extrabye" value="6">6 run</label>
+				  
+				   
+				</div>
+      <div class="form-group a15" style="display:none;" >
+    <br>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                   <label for="Ball">Select Run If Any:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+				   <label class="radio-inline"><input type="radio" name="extrabye" class="extrawide" value="0">0 Run</label>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <label class="radio-inline"><input type="radio" name="extrabye" class="extrawide" value="1">1 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extrabye" class="extrawide" value="2">2 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extrabye" class="extrawide" value="3">3 run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    <label class="radio-inline c1"><input type="radio" name="extrabye" class="extrawide" value="4"> 4 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline c1"><input type="radio" name="extrabye" class="extrawide" value="6">6 run</label>
+
+
+				</div>
+   <div style="display:none;" class="form-group a4">
+     <br>
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <label for="Ball" >Batsman Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="extranobat" class="form-control input-md">
+                           {% if match.status == 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="0">0 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="1">1 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="2">2 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="3">3 run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				    <label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="4"> 4 Run</label>
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <label class="radio-inline"><input type="radio" name="extranorun" class="extranorun" value="6">6 run</label>
+
+
+				</div>
+   <div class="form-group a5" style="display:none;" >
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 
+                <label for="Ball" >Select Type</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+				   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     	   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 
+                   <label class="radio-inline d1"><input type="radio" name="wicketype" class="wicketype" value="1">Catched</label>
+				   &nbsp;
+                   <label class="radio-inline d2"><input type="radio" name="wicketype" class="wicketype" value="2">Wicket</label>
+				    &nbsp; &nbsp;&nbsp;
+				   <label class="radio-inline d3"><input type="radio" name="wicketype" class="wicketype" value="3">Run-Out</label>
+				   
+				</div>
+   <div class="form-group a6" style="display:none;" >
+				  <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <label for="Ball" >Select Batsman:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="wicketrunoutbat" class="form-control input-md">
+                           {% if match.status == 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+
+
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <label for="Ball" >Runout By:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="wicketrunoutball" class="form-control input-md">
+                          {% if match.status != 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+
+
+				</div>
+   <div class="form-group a7" style="display:none;" >
+				  <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
+	 
+                <label for="Ball" >Select Batsman:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="wicketcatbat" class="form-control input-md">
+                          {% if match.status == 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+
+
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <label for="Ball" >Catched By:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="wicketcatball" class="form-control input-md">
+                           {% if match.status != 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+				   
+				  			   
+				</div>
+   <br>
+   <div class="form-group a8" style="display:none;" >
+				  <br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <label for="Ball" >Select Batsman:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="wicketbat" class="form-control input-md">
+                           {% if match.status == 'pending' %}
+                            {% for select in teamins1.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% else %}
+                            {% for select in teamins2.participant.all %}
+                           <option>{{select.name}}</option>{% endfor %}
+                            {% endif %}
+                        </select>
+
+				</div>
+
+	<div class="col-sm-3 col-sm-offset-6 btn" style="display:none;">
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+    </div>
+
+	<hr>
+
+
+  </form>
+
+ </div>
+
+{% endblock %}

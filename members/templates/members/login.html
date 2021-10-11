@@ -1,0 +1,59 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Login Page{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/registerforevent.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+ <script>
+            {% if messages %}
+                {% for message in messages %}
+                    alert(message);
+                {% endfor %}
+            {% endif %}
+</script>
+{% endblock %}
+
+{% block content %}
+<br><br><br><br><br><br>
+<div class="container-fluid">
+<center>
+            <form class="form-horizontal" role="form" action="/members/login/" method="POST" >
+			{% csrf_token %}
+                <div class="well well-sm" ><h1>Login Form</h1></div>
+				<div class="well">
+
+			
+			 <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  placeholder="Email" name="email" class="form-control" required>
+                    </div>
+                </div>
+                
+				  <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" name="password" class="form-control" minlength="8" maxlength="10" required>
+                    </div>
+                  </div>
+                    <a href="{% url 'password_reset' %}" class="for" >Forgot password?</a>
+
+
+
+						<center>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-block" id="submitbutton">Login</button>
+                    </div>
+                </div>
+				</center>
+                </div>
+            </form>
+
+    <!-- /form -->
+</center>
+        </div> <!-- ./container -->
+<br><br><br>
+{% endblock %}

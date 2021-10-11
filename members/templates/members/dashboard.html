@@ -1,0 +1,359 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block stylesheet %}
+
+<!--<link href="{% static 'css/stylefinal.css' %}" rel="stylesheet" type="text/css" media="all" />-->
+<style>
+<link rel="stylesheet" href="{% static 'Custom/css/bootstrap.css' %}"/>
+div.temp
+{
+  background-color:yellow !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="fh5co-hero" >
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image:url({% static 'Custom/images/home1.jpg' %})">
+				<div class="desc animate-box">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-7">
+								<h2>Cricket is not<br> just a <b>Sport</b></h2>
+								<p><span>It is a feeling <i class="icon-heart3"></i> </span></p>
+								<span><a class="btn btn-primary" href="{% url 'cricket:eventdisplay' %}">Explore</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fh5co-programs-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="heading-section text-center animate-box">
+							<h2>Welcome To GC Sports When Climbing The Career Ladder</h2>
+							<p>GC Sports is a platform that make complete sports management system automated. It means no problem for school, college and university sports department for notifying students about latest events and functions. It means no problem for school, college and university sports department for notifying students about latest events and functions. It means no problem for school, college and university sports department for notifying students about latest events and functions.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fh5co-schedule-section" class="fh5co-lightgray-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="heading-section text-center animate-box">
+							<h2>Matches Schedule</h2>
+							<p>All the matches for one week.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-10 col-md-offset-1 text-center">
+						<ul class="schedule">
+							<li><a href="#" class="active" data-sched="sunday">Sunday</a></li>
+							<li><a href="#" data-sched="monday">Monday</a></li>
+							<li><a href="#" data-sched="tuesday">Tuesday</a></li>
+							<li><a href="#" data-sched="wednesday">Wednesday</a></li>
+							<li><a href="#" data-sched="thursday">Thursday</a></li>
+							<li><a href="#" data-sched="monday">Monday</a></li>
+							<li><a href="#" data-sched="saturday">Saturday</a></li>
+						</ul>
+					</div>
+					<div class="row text-center">
+
+						<div class="col-md-12 schedule-container">
+
+							<div class="schedule-content active" data-day="sunday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="monday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+								
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="tuesday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="wednesday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="thursday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="friday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>06AM-7AM</small>
+										<h3> Program</h3>
+										
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+
+							<div class="schedule-content" data-day="saturday">
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Quetta Gladiators vs Islamabad United</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Lahore Qalandars vs Peshawar Zalmi</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>10PM-1AM</small>
+										<h3>Multan Sultan vs Karachi Kings </h3><span> <br/> </span>
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end:fh5co-hero -->
+	<!--<section class="inside">-->
+		<!--<div class="container">-->
+{% comment %}   
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static '{% static 'Custom/images/cricketndimage.jpg' %}" alt="Los Angeles" style="width:100%;">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static '{% static 'Custom/images/cricketndimage.jpg' %}" alt="Chicago" style="width:100%;">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'Custom/images/cricketndimage.jpg' %}" alt="New York" style="width:100%;">
+    </div>
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+    <br>
+    <br>
+    <br>
+    <div class="container-fluid">
+      <!-- /row -->
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="white-box">
+            <h3 class="box-title" style="text-align:center;">Latest Tournament</h3>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Team Name</th>
+                    <th>Points</th>
+                    <th>Tournament</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for select in pointstabledata %}
+                  <tr>
+                    <td>1</td>
+                    <td>{{select.teams.teamname}}</td>
+                    <td>{{select.points}}</td>
+                    <td>{{select.tournament.name}}</td>
+
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="white-box">
+            <h1>Welcome To GC Sports When Climbing The Career Ladder</h1>
+              <p style="text-align:justify;">GC Sports is a platform that make complete sports management system automated.
+                  It means no problem for school, college and univeristy sports department for notifying students about latest
+                  events and functions. It means no problem for school, college and univeristy sports department for notifying students about latest
+                  events and functions. It means no problem for school, college and univeristy sports department for notifying students about latest
+                  events and functions.
+              </p>
+          </div>
+        </div>
+      </div>
+    </div> {% endcomment %}
+{% endblock %}

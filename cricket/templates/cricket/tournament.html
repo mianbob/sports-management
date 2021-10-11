@@ -1,0 +1,587 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Match Schedule{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".save").click(function(r) {
+        var matchid = $("#hiddenid").val();
+        var team1 = $("#Team1").val();
+        var team2 = $("#Team2").val();
+        var date = $("#Date").val();
+        var venue = $("#Venue").val();
+      $.ajax({
+        url: '/cricket/updatematch/',
+        data: {
+          'matchid': matchid,
+          'team1':team1,
+          'team2':team2,
+          'date':date,
+          'venue':venue,
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("successdeddde");
+        alert("EVent is updated");
+        window.location.reload(true);
+        }
+      });
+
+    });
+    });
+
+
+$(document).ready(function(){
+    $(".tosssave").click(function(r) {
+        var matchid = $("#hiddenidanother").val();
+        var teamsel = $("#Tossselected").val();
+        var tossupdate = $("#Tossupdate").val();
+      $.ajax({
+        url: '/cricket/tossupdate/',
+        data: {
+          'matchid': matchid,
+          'teamsel':teamsel,
+          'tossupdate':tossupdate,
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("successdeddde");
+        alert("Toss is updated");
+        window.location.reload(true);
+        }
+      });
+
+    });
+    });
+
+</script>
+{% endblock %}{% block content %}
+ <div class="container">
+ <div class="table-responsive"> 
+ 
+
+<center>
+<br/><br/><br/><br/><br/>
+  <h2>{{cricket.name}}</h2>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+ <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="5%">Match id</th>
+        <th width="10%">Team1</th>
+        <th width="10%">Team2</th>
+        <th width="10%">Date</th>
+	{% if user.is_staff %}<th width="5%">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit</th>{% endif %}
+        <th width="5%">Results</th>
+          {% if user.is_staff %}
+          <th width="5%">Add Toss</th>
+          <th width="10%">Add Match Statistics</th>
+          {% else %}
+          {% if user.is_scorer %}
+          <th width="5%">Add Toss</th>
+          <th width="10%">Add Match Statistics</th>
+          {% endif %}
+        {% endif %}
+      </tr>
+    </thead>
+     {% if matches %}
+    <tbody>
+    {% for select in matches %}
+        {% if select.status == "Semi Final" %}
+        <input type="text" style="display:none;"/>
+    {% else %}
+    <tr>
+
+        <td>{{select.matchNo}}</td>
+        {% for item in select.teams.all %}
+        <td>{{item.teamname}}</td>
+        {% endfor %}
+        <td>{{select.date}}</td>
+		{% if user.is_staff %}
+		 <td>
+		<div class="form-group">
+  <label class="col-md-2 control-label" for="Edit"></label>
+  <div class="col-md-12">
+   <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" value="{{select.id}}" data-target="#myModal">Edit Match</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Match Schedule</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+             <input type="text" value="{{select.id}}" style="display:none;" id="hiddenid">
+
+                    <label for="Match" class="col-sm-2 control-label">Match:</label>
+                    
+                <div class="col-sm-4">
+                        <select id="Team1" class="form-control">
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+					
+						
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team2" class="form-control">
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+					
+				</div>
+				
+				   <div class="form-group" >
+				   
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="date" id="Date" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="Venue" placeholder="Venue" class="form-control">
+                    </div>				  
+		</div>
+
+        </div>
+		
+        <br>
+		<br>
+		
+               
+		
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md save" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+	 
+	 
+  </div>
+</div></td>
+        {% endif %}
+        {% if select.status == "ResultAvailable" %}
+        <td><a href="{% url 'cricket:matchstatistics' select.id %}">View Results</a></td>
+        {% else %}
+        <td>Status Is {{select.status}}</td>
+        {% endif %}
+        {% if user.is_staff%}
+        {% if select.tossstatus == 'pending' %}
+        <td>
+		<div class="form-group">
+
+  <div class="col-md-12">
+   <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" data-target="#myagainModal">Toss Info</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myagainModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Toss Information</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+
+                    <label for="Match" class="col-sm-2 control-label">Match Toss:</label>
+                <input type="text" value="{{select.id}}" style="display:none;" id="hiddenidanother">
+                <div class="col-sm-4">
+                        <select id="Tossselected" class="form-control">
+                            {% for item in select.teams.all %}
+                            <option value="{{item.user}}">{{item.teamname}}</option>
+                            {% endfor %}
+                        </select>
+
+        </div>
+
+              <div class="col-sm-4">
+                        <select id="Tossupdate" class="form-control">
+
+                            <option value="Batting">Batting</option>
+                            <option value="Fielding">Fielding</option>
+
+                        </select>
+
+        </div>
+
+        <br>
+		<br>
+
+
+
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md tosssave" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+</div>
+  </div></div>
+    </td>{% else %}
+        <td>Toss Is Done</td>
+        {% endif %}
+        {% if select.tossstatus == 'pending' %}
+        <td>Please Update Toss First</td>
+        {% else %}
+        <td><a href="{% url 'cricket:ballbyball' select.id %}">Click To ADD</a></td>
+        {% endif %}
+        {% endif %}
+
+        {% if select.event.scorer.id == user.id%}
+        {% if select.tossstatus == 'pending' %}
+        <td>
+		<div class="form-group">
+
+  <div class="col-md-12">
+   <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" data-target="#myagainModal">Toss Info</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myagainModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Toss Information</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+
+                    <label for="Match" class="col-sm-2 control-label">Match Toss:</label>
+                <input type="text" value="{{select.id}}" style="display:none;" id="hiddenidanother">
+                <div class="col-sm-4">
+                        <select id="Tossselected" class="form-control">
+                            {% for item in select.teams.all %}
+                            <option value="{{item.user}}">{{item.teamname}}</option>
+                            {% endfor %}
+                        </select>
+
+        </div>
+
+              <div class="col-sm-4">
+                        <select id="Tossupdate" class="form-control">
+
+                            <option value="Batting">Batting</option>
+                            <option value="Fielding">Fielding</option>
+
+                        </select>
+
+        </div>
+
+        <br>
+		<br>
+
+
+
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md tosssave" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+</div>
+  </div></div>
+    </td>{% else %}
+        <td>Toss Is Done</td>
+        {% endif %}
+        {% if select.tossstatus == 'pending' %}
+        <td>Please Update Toss First</td>
+        {% else %}
+        <td><a href="{% url 'cricket:ballbyball' select.id %}">Click To ADD</a></td>
+        {% endif %}
+        {% endif %}
+
+
+      </tr>
+    {% endif %}
+	  {% endfor %}
+    </tbody>
+     {% endif %}
+
+  </table>
+ 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    {% if semifinalchecker == "Dont Exists" %}
+ <table class="table-hover ">
+   <tr>
+   <tr class="active">
+  <th width="10%"><Center>Match-id</center></th>
+	 <th width="10%"> <center>Semi-finals</center></th>
+   </tr>
+   <tr>
+    <td><center>Moo1<center></td>
+    <td><center>qualfier 1 vs Qualifier 2<center></td>
+  </tr>
+  <tr>
+    <td><center>Moo2<center></td>
+    <td><center>qualfier 1 vs Qualifier 2<center></td>
+  </tr>
+   </table>
+
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <table class="table-hover ">
+   <tr>
+    
+  <th width="10%"><Center>Match-id</center></th>
+	 <th width="10%"> <center>Finals</center></th>
+   </tr>
+    <tr>
+    <td width="10%"><center>Moo1</center></td>
+    <td width="10%"><center>qualfier 1 vs Qualifier 2<center></td>
+  </tr>
+   </table>
+    {% endif %}
+    {% if semifinalchecker == "Semi Final Exists" %}
+<h1>Semi Final</h1>
+    <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="5%">Match id</th>
+        <th width="10%">Team1</th>
+        <th width="10%">Team2</th>
+        <th width="10%">Date</th>
+	{% if user.is_staff %}<th width="5%">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edit</th>{% endif %}
+        <th width="5%">Results</th>
+          {% if user.is_staff %}
+          <th width="5%">Add Toss</th>
+          <th width="10%">Add Match Statistics</th>
+        {% endif %}
+      </tr>
+    </thead>
+     {% if matches %}
+    <tbody>
+    {% for select in semifinalvalues %}
+    <tr>
+
+        <td>{{select.matchNo}}</td>
+        {% for item in select.teams.all %}
+        <td>{{item.teamname}}</td>
+        {% endfor %}
+        <td>{{select.date}}</td>
+		{% if user.is_staff %}
+		 <td>
+		<div class="form-group">
+  <label class="col-md-2 control-label" for="Edit"></label>
+  <div class="col-md-12">
+   <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" value="{{select.id}}" data-target="#myModal">Edit Match</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Match Schedule</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+             <input type="text" value="{{select.id}}" style="display:none;" id="hiddenid">
+
+                    <label for="Match" class="col-sm-2 control-label">Match:</label>
+
+                <div class="col-sm-4">
+                        <select id="Team1" class="form-control">
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+
+
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team2" class="form-control">
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+
+				</div>
+
+				   <div class="form-group" >
+
+
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="date" id="Date" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="Venue" placeholder="Venue" class="form-control">
+                    </div>
+		</div>
+
+        </div>
+
+        <br>
+		<br>
+
+
+
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md save" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+</div></td>
+        {% endif %}
+        {% if select.status == "ResultAvailable" %}
+        <td><a href="{% url 'cricket:matchstatistics' select.id %}">View Results</a></td>
+        {% else %}
+        <td>Status Is {{select.status}}</td>
+        {% endif %}
+        {% if user.is_staff%}
+        {% if select.tossstatus == 'pending' %}
+        <td>
+		<div class="form-group">
+
+  <div class="col-md-12">
+   <button type="button" class="btn btn-info btn-md edit" data-toggle="modal" data-target="#myagainModal">Toss Info</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myagainModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Toss Information</h4>
+        </div>
+        <div class="modal-body">
+		 <div class="form-group" >
+
+                    <label for="Match" class="col-sm-2 control-label">Match Toss:</label>
+                <input type="text" value="{{select.id}}" style="display:none;" id="hiddenidanother">
+                <div class="col-sm-4">
+                        <select id="Tossselected" class="form-control">
+                            {% for item in select.teams.all %}
+                            <option value="{{item.user}}">{{item.teamname}}</option>
+                            {% endfor %}
+                        </select>
+
+        </div>
+
+              <div class="col-sm-4">
+                        <select id="Tossupdate" class="form-control">
+
+                            <option value="Batting">Batting</option>
+                            <option value="Fielding">Fielding</option>
+
+                        </select>
+
+        </div>
+
+        <br>
+		<br>
+
+
+
+        <div class="modal-footer">
+		<br>
+          <button type="button" class="btn btn-info btn-md" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-info btn-md tosssave" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+</div>
+  </div></div>
+    </td>{% else %}
+        <td>Toss Is Done</td>
+        {% endif %}
+
+
+
+        {% if select.tossstatus == 'pending' %}
+        <td>Please Update Toss First</td>
+        {% else %}
+        <td><a href="{% url 'cricket:ballbyball' select.id %}">Click To ADD</a></td>
+        {% endif %}
+        {% endif %}
+
+      </tr>
+	  {% endfor %}
+    </tbody>
+     {% endif %}
+
+  </table>
+
+    {% endif %}
+
+   </center>
+ 
+</div>
+
+
+
+  </div>
+
+<br/><br/><br/><br/><br/>
+{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/event-display(1).css' %}">
+{% endblock %}

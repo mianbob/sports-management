@@ -1,0 +1,178 @@
+{% extends 'members/base.html' %}
+{% load static %}
+
+{% block title %}Create Event{% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/createvent.css' %}">
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+
+
+ <script type="text/javascript">
+
+  $(document).ready(function(){
+        $(".a1").click(function(){
+          $(".v2").show();
+          });
+         });
+
+  $(document).ready(function(){
+        $(".a2").click(function(){
+          $(".v3").show();
+          });
+         });
+
+  $(document).ready(function(){
+        $(".a4").click(function(){
+          $(".deadlineshow").show();
+          });
+         });
+
+   $(document).ready(function(){
+        $(".a5").click(function(){
+          $(".deadlineshow").hide();
+          });
+         });
+ </script>
+
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+<center>
+            <form class="form-horizontal" role="form" action="/members/evententry/" enctype="multipart/form-data" method="POST">
+			    {% csrf_token %}
+                <div class="well well-sm" ><h1>Create Cricket Event</h1></div>
+				<div class="well">
+                <div class="form-group" >
+				  
+                    <label for="EventName" class="col-sm-3 control-label">Event Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="EventName" required pattern="[a-zA-Z][a-zA-Z0-9\s]*" placeholder="Event Name" class="form-control" autofocus name="eventname" >
+         
+                    </div>
+                
+				</div>
+                    <div class="form-group" >
+
+                    <label for="Teamlogo" class="col-sm-3 control-label">Event Logo:</label>
+                    <div class="col-sm-9">
+                        <input type="file" id="Teamlogo" class="form-control" name="eventlogo" autofocus>
+
+                    </div>
+
+				</div>
+				 <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Sports
+			   Category:</label>
+                    <div class="col-sm-9">
+                        <select id="category" class="form-control" name="sportcategory">
+                            <option>Cricket</option>
+                        </select>
+                    </div>
+                </div>
+                     <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Scorer:</label>
+                    <div class="col-sm-9">
+                        <select id="category" class="form-control" name="eventscorer">
+                            {% for select in scorerlist %}
+                            <option value="{{select.id}}">{{select.first_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                    <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Overs:</label>
+                    <div class="col-sm-9">
+                        <select id="category" class="form-control" name="cricketovers">
+                            <option>3</option>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>30</option>
+                        </select>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label for="Venue" class="col-sm-3 control-label">1ST Venue for Event:</label>
+                    <div class="col-sm-9">
+                        <input type="Text" id="Venue" pattern="[a-zA-Z][a-zA-Z\s]*" required placeholder="Venue" class="form-control" name="venue1">
+                    </div>
+					<br><br>
+					 <div class="col-sm-3 col-sm-offset-9">
+                              <button type="button" class="btn btn-primary btn-block a1">Addmore</button>
+
+                    </div>
+                
+			
+				</div>
+				  <div class="form-group v2"  style="display:none;">
+                    <label for="Venue" class="col-sm-3 control-label">2ND Venue for Event:</label>
+                    <div class="col-sm-9">
+                        <input type="Text" id="Venue" pattern="[a-zA-Z][a-zA-Z\s]*" placeholder="Venue" class="form-control" name="venue2">
+                    </div>
+					<br><br>
+					 <div class="col-sm-3 col-sm-offset-9">
+                        <button type="button" class="btn btn-primary btn-block a2">Addmore</button>
+                    </div>
+                
+			
+				</div>
+				  <div class="form-group v3" style="display:none;">
+                    <label for="Venue" class="col-sm-3 control-label">3RD Venue for Event:</label>
+                    <div class="col-sm-9">
+                        <input type="Text" id="Venue" placeholder="Venue" pattern="[a-zA-Z][a-zA-Z\s]*" class="form-control" name="venue3">
+                    </div>
+					<br><br>
+
+                  </div>
+                    <div class="form-group">
+                    <label class="control-label col-sm-3">open for Registration:</label>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="radio-inline">
+                                   <input class="a4" type="radio" value="yes" name="openforregister">Yes
+                                </label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="radio-inline">
+                                    <input type="radio" class="a5" value="no" name="openforregister">No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+			
+				</div>
+                <div class="form-group deadlineshow"  style="display:none;">
+                    <label for="Deadline" class="col-sm-3 control-label">Deadline for Registration:</label>
+                    <div class="col-sm-9">
+                        <input type="date" placeholder="2018-04-13" id="Deadline" class="form-control" name="date">
+                    </div>
+                </div>
+                <div class="form-group">
+							<label for="Rules" class="col-sm-3 control-label">Registration Criteria</label>
+							<div class="col-sm-9">
+							<textarea placeholder="Enter Registration Criteria Here.." rows="3" class="form-control" name="rulesarea"></textarea>
+						</div>	
+						</div>
+						<center>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-block">Create Event</button>
+                    </div>
+                </div>
+				</center>
+                </div>
+            </form> <!-- /form -->
+         <!-- ./container -->
+</center>
+</div>
+		
+{% endblock %}

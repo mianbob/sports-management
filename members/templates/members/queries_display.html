@@ -1,0 +1,48 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Event{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/event-display.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% endblock %}
+{% block content %}
+ <div class="container">
+ <div class="table-responsive">
+
+
+<center>
+  <h2>Queries For You</h2>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{% if queries %}
+ <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="20%" >Name</th>
+          <th width="20%" >Subject</th>
+          <th width="20%" >Email</th>
+        <th width="40%" >Description</th>
+      </tr>
+    </thead>
+     {% for select in queries %}
+    <tbody>
+    <tr>
+        <td>{{select.name}}</td>
+        <td>{{select.subject}}</td>
+        <td>{{select.email}}</td>
+        <td>{{select.query}}</td>
+      </tr>
+	</tbody>
+     {% endfor %}
+</table>
+{% endif %}
+</center>
+  </div>
+  </div>
+
+
+{% endblock %}

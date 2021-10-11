@@ -1,0 +1,287 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Club Profile{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/profile2.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+ <script type="text/javascript">
+ $(document).ready(function(){
+        $("#edit").click(function(){
+            $("#withedit").show();
+            $("#withoutedit").hide();
+            $("#abo1").hide();
+            $("#abo2").hide();
+            $("#abo3").hide();
+            $("#proabove1").show();
+            $("#proabove2").show();
+            $("#proabove3").show();
+          });
+        $("#cancelbutton").click(function(){
+            $("#withedit").hide();
+            $("#withoutedit").show();
+            $("#proabove1").hide();
+            $("#proabove2").hide();
+            $("#proabove3").hide();
+            $("#abo1").show();
+            $("#abo2").show();
+            $("#abo3").show();
+          });
+         });
+  </script>
+{% endblock %}
+<br><br><br><br><br><br>
+{% block content %}
+<div class="container">
+    <center><h2> Club Profile</h2></center>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-10">
+            <button type="submit" id="edit" class="btn btn-primary btn-block">Edit Profile</button>
+        </div>
+    </div>
+<br>
+<br>
+<form action="/members/profileupdate/" method="POST" class="form-horizontal" role="form">{% csrf_token %}
+<div class="form-group" >
+    <label for="TeamName" class="col-sm-2 control-label">Team Name:</label>
+    <div class="col-sm-8">
+        <label class="col-sm-4 control-label" id="abo1">{{team.teamname}}</label>
+        <input type="text" id="proabove1" style="display:none;" placeholder="{{team.teamname}}" class="form-control" autofocus>
+    </div>
+</div>
+    <div class="form-group" >
+         <label class="col-sm-2 control-label">Captain Name:</label>
+         <div class="col-sm-8">
+             <label class="col-sm-4 control-label" id="abo2">{{team.captain_name}}</label>
+             <input type="text" id="proabove2" style="display:none;" placeholder="{{team.captain_name}}" class="form-control" autofocus>
+         </div>
+     </div>
+    {% if team.manager != "" %}
+     <div class="form-group" >
+         <label class="col-sm-2 control-label">Manager:</label>
+         <div class="col-sm-4">
+             <label class="col-sm-4 control-label" id="abo3">{{team.manager}}</label>
+             <input type="text" id="proabove3" style="display:none;" placeholder="Manager Name" class="form-control" autofocus>
+         </div>
+     </div>
+    {% endif %}
+<br>
+<div class="at-section" id="withedit" style="display:none;">
+  <div class="at-grid" data-column="3">
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+       <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player1">
+          <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category1">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player2">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category2">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player3">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category3">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player4">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category4">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+       <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player5">
+          <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category5">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player6">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category6">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player7">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category7">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus  name="player8">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category8">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+       <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player9">
+          <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category9">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player10">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category10">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player11">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category11">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+      <input type="text" placeholder="Enter Player Name" class="form-control" autofocus name="player12">
+         <div class="form-group">
+               <label for="category" class="col-sm-3 control-label">Select Speciality:</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="category12">
+                            <option>Bowler</option>
+                            <option>Batsman</option>
+                            <option>All-Rounder</option>
+                        </select>
+                    </div>
+                </div>
+      </div>
+    </div>
+  </div>
+    <button type="submit">Save Profile</button>
+          <button type="button" id="cancelbutton" >Cancel</button>
+</div>
+      </form>
+</div>
+
+<div class="at-section" id="withoutedit">
+  <div class="at-grid" data-column="3">
+    {% for select in team.participant.all %}
+
+      <div class="at-column">
+      <div class="at-user">
+      <div><img src="{% static 'images/profiledummy.jpg' %}" class="img-circle" width="70%"></div>
+          <div class="at-user__name" >{{select.name}}</div>
+        <div class="at-user__title" >{{select.speciality}}</div>
+      </div>
+    </div>
+       
+      {% endfor %}
+  </div>
+</div>
+<br><br><br>
+{% endblock %}

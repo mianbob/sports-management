@@ -1,0 +1,164 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}
+Match Statistics
+{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+ <div class="container">
+ <div class="table-responsive"> 
+<br/><br/><br/><br/>
+<center>
+<h2>Scorecard - First Innings</h2>
+
+
+ <table class="table-hover ">
+  <tr>
+  <tr class="active">
+    <th colspan="3">Team 1 Innings</th>
+       <th>Runs</th>
+          <th>M</th>
+    <th>Balls</th>
+     <th>4s</th>
+      <th>6s</th>
+  </tr>
+    {% for select in scorelist %}
+     <tr>
+     {% for second in select %}
+    <td width="">{{second}}</td>
+     {% endfor %}
+         </tr>
+     {% endfor %}
+
+
+   <tr>
+    <td width="5%"colspan="2"> Extra</td>
+    
+    <td width="30%">{{extrastringfirstinning}}</td>
+    <td width="10%"> {{totalextrafirstinning}}</td>
+    <td width="10%"></td>
+       <td></td>
+         <td></td>
+           <td></td>
+  </tr>
+   <tr>
+    <td width="5%"colspan="2"> Total</td>
+    
+    <td width="30%">{{overwicketstringfirstinning}}</td>
+    <td width="10%"> {{totalscorefirstinning}}</td>
+    <td width="5%"colspan="4">{{stringaveragerunfirstinning}}</td>
+         
+  </tr>
+  
+ 
+</table>
+
+    <br>
+    <br>
+
+ <table class="table-hover ">
+  <tr>
+ <tr class="active">
+    <th>Bowling</th>
+    <th>Overs</th>
+    <th>Maidens</th>
+    <th>Runs</th>
+    <th>Wickets</th>
+    <th>Wides</th>
+        <th>No Balls</th>
+
+  </tr>
+         {% for select in firstinningbowlingdata %}
+     <tr>
+     {% for second in select %}
+    <td width="">{{second}}</td>
+     {% endfor %}
+         </tr>
+     {% endfor %}
+ 
+</table>
+</center>
+<br>
+     <br>
+     <hr>
+<center>
+<h2>Score Card - Second Innings</h2>
+
+    <table class="table-hover ">
+  <tr>
+  <tr class="active">
+    <th colspan="3">Team 2 Innings</th>
+       <th>Runs</th>
+          <th>M</th>
+    <th>Balls</th>
+     <th>4s</th>
+      <th>6s</th>
+  </tr>
+    {% for select in scorelistsecond %}
+     <tr>
+     {% for second in select %}
+    <td width="">{{second}}</td>
+     {% endfor %}
+         </tr>
+     {% endfor %}
+
+
+   <tr>
+    <td width="5%"colspan="2"> Extra</td>
+
+    <td width="30%">{{extrastringsecondinning}}</td>
+    <td width="10%"> {{totalextrasecondinning}}</td>
+    <td width="10%"></td>
+       <td></td>
+         <td></td>
+           <td></td>
+  </tr>
+   <tr>
+    <td width="5%"colspan="2"> Total</td>
+
+    <td width="30%">{{overwicketsecondinning}}</td>
+    <td width="10%"> {{totalscoresecondinning}}</td>
+    <td width="5%"colspan="4">{{stringaveragerunsecondinning}}</td>
+
+  </tr>
+
+
+</table>
+    <br>
+    <br>
+
+
+ <table class="table-hover ">
+  <tr>
+ <tr class="active">
+    <th>Bowling</th>
+    <th>Overs</th>
+    <th>Maidens</th>
+    <th>Runs</th>
+    <th>Wickets</th>
+    <th>Wides</th>
+        <th>No Balls</th>
+
+  </tr>
+    {% for select in secondinningbowlingdata %}
+     <tr>
+     {% for second in select %}
+    <td width="">{{second}}</td>
+     {% endfor %}
+         </tr>
+     {% endfor %}
+
+  </tr>
+  
+ 
+</table>
+</center>
+</div>
+</div>
+<br/><br/><br/><br/>
+
+{% endblock %}

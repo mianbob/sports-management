@@ -1,0 +1,265 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Match Schedule{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/matchsch.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+crossorigin="anonymous"></script>
+<!-- <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).on('submit','#newMatch',function(e){
+    e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: '/cricket/matchentry/',
+        data: {
+          match:$('#matchno').val(),
+          event:$('#eventname').val(),
+          team1:$('#Team1').val(),
+          team2:$('#Team2').val(),
+          date:$('#date').val(),
+          venue:$('#venue').val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("success");
+        e.preventDefault();
+        alert(data.message);
+        window.location.reload(true);
+        }
+      });
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+
+
+    <form class="form-horizontal" role="form" id="newMatch" method="POST">
+        {% csrf_token %}
+    <center> <div class="well well-sm" ><h1>Schedule Of {{cricketevent.name}}</h1></div></center>
+	<div class="well">
+   <section>
+       <div class="form-group" >
+           <label for="Match" class="col-sm-2 control-label">Match {{matchcount}}:</label>
+                <div class="col-sm-4">
+                        <select id="Team1" class="form-control">
+                            <option>Select Team</option>
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team2" class="form-control">
+                            <option>Select Team</option>
+                            {% if teams %}
+                            {% for select in teams %}
+                            <option value="{{select.teamid.user}}">{{ select.teamid.teamname }}</option>
+                            {% endfor %}
+                            {% endif %}
+                           
+                        </select>
+                    </div>
+					
+				</div>
+       <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="datetime-local" id="date" class="form-control" placeholder="yyyy-mm-dd">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                       <select id="venue" class="form-control">
+                            <option>Select Venue</option>
+                            {% if cricketevent %}
+                            {% if cricketevent.venue1 %}
+                                <option>{{ cricketevent.venue1 }}</option>
+                            {% endif %}
+                            {% if cricketevent.venue2 %}
+                                <option>{{ cricketevent.venue2 }}</option>
+                            {% endif %}
+                            {% if cricketevent.venue3 %}
+                                <option>{{ cricketevent.venue3 }}</option>
+                            {% endif %}
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+
+				        <input type="Text" id="eventname" value="{{cricketevent.name}}" style="display:none;">
+                        <input type="Text" id="matchno" value="{{matchcount}}" style="display:none;">
+					<br><br>
+					<div class="col-sm-3 col-sm-offset-8">
+                        <button type="submit" class="btn btn-primary btn-block" value="submit">Save</button>
+                    </div>
+
+       </div>
+
+   </section>
+		</div>
+
+       </form>
+
+
+
+	  
+	<hr class="style5">
+    <form class="form-horizontal" role="form">
+	<center><div ><h1>Semi-Finals</h1></div></center>
+	<section>
+                <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Semi-Final 1:</label>
+                    
+                <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                          
+                        </select>
+						
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                           
+                        </select>
+                    </div>
+					
+					
+				</div>
+				
+				
+				   <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="datetime-local" id="semifinal1date" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="semifinal1venue" placeholder="Venue" class="form-control">
+                    </div>
+				
+				<br>
+				<br>
+				<div class="col-sm-3 col-sm-offset-8">
+                        <button type="submit" class="btn btn-primary btn-block a1">Save</button>
+                    </div>	
+					  
+		</div>
+	</section>
+	<br><br>
+	<section>
+        <div class="form-group" >
+            <label for="Match" class="col-sm-2 control-label">Match 1:</label>
+                <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                        </select>
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                           
+                        </select>
+                    </div>
+					
+				</div>
+        <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="datetime-local" id="semifinal2date" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="semifinal2venue" placeholder="Venue" class="form-control">
+                    </div>
+				<br>
+				<br>
+					<div class="col-sm-3 col-sm-offset-8">
+                        <button type="submit" class="btn btn-primary btn-block a1">Save</button>
+                    </div>
+					
+					  
+		</div>
+	</section>
+	</form>
+	
+	   
+	<hr class="style5">
+	<form class="form-horizontal" role="form">
+	<center><div ><h1>Finals</h1></div></center>
+	<section>
+                <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Match 1:</label>
+                    
+                <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                          
+                        </select>
+						
+                    </div>
+						  <label for="Vs" class="col-sm-1 control-label">VS</label>
+					 <div class="col-sm-4">
+                        <select id="Team" class="form-control">
+                            <option>Select Team</option>
+                            <option>Team 1</option>
+                            <option>Team 2</option>
+                           
+                        </select>
+                    </div>
+					
+				</div>
+				
+				
+				   <div class="form-group" >
+				  
+                    <label for="Match" class="col-sm-2 control-label">Date:</label>
+					  <div class="col-sm-4">
+                        <input type="datetime-local" id="finaldate" class="form-control">
+                    </div>
+					 <label for="Venue" class="col-sm-1 control-label">Venue:</label>
+                   <div class="col-sm-4">
+                        <input type="Text" id="finalvenue" placeholder="Venue" class="form-control">
+                    </div>
+				
+					<br><br>
+					<div class="col-sm-3 col-sm-offset-8">
+                        <button type="submit" class="btn btn-primary btn-block a1">Save</button>
+                    </div>
+					  
+		</div>
+	</section>
+	</form>
+	</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Training Registration {% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/createvent.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        $("#email").change(function () {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '/members/ajax/validate_username/',
+            data: {
+            'username': username
+            },
+            dataType: 'json',
+            success: function (data) {
+            console.log("success");
+            if (data.is_taken) {
+                alert("A user with this username already exists.");
+            }
+            }
+        });
+
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+	
+<br><br><br>
+<div class="container-fluid">
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    	<div id="fh5co-schedule-section" class="fh5co-lightgray-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="heading-section text-center animate-box">
+							<h2>Training Type</h2>
+							<p>Select the type of training.</p>
+						</div>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-10 col-md-offset-1 text-center">
+						<ul class="schedule">
+							<li><a href="#" class="active" data-sched="sunday">Sunday</a></li>
+							<li><a href="#" data-sched="monday">Monday</a></li>
+							<li><a href="#" data-sched="tuesday">Tuesday</a></li>
+							<li><a href="#" data-sched="wednesday">Wednesday</a></li>
+							<li><a href="#" data-sched="thursday">Thursday</a></li>
+							<li><a href="#" data-sched="monday">Monday</a></li>
+							<li><a href="#" data-sched="saturday">Saturday</a></li>
+						</ul>
+					</div>
+					<div class="row text-center">
+
+						<div class="col-md-12 schedule-container">
+
+							<div class="schedule-content active" data-day="sunday">
+								<div class="col-md-6 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>04PM-7PM</small>
+										<h3>Batting</h3>
+										
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<div class="program program-schedule">
+										<img src="{% static 'Custom/images/cricket.svg' %}" alt="Cricket">
+										<small>8PM-11PM</small>
+										<h3>Bowling</h3>
+										
+									</div>
+								</div>
+							</div>
+							<!-- END sched-content -->
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+<center>
+            <form class="form-horizontal" role="form" action="/members/cricketteamsignup/" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+                <div class="well well-sm" ><h1>Training Registration Form</h1></div>
+				<div class="well">
+                <div class="form-group" >
+                    <label for="TeamName" class="col-sm-3 control-label">Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="TeamName" pattern="[a-zA-Z][a-zA-Z\s]*" name="name" placeholder="Your Name" class="form-control" autofocus>
+         
+                    </div>
+                
+				</div>
+                <div class="form-group" >
+                    <label for="CName" class="col-sm-3 control-label">Age:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="CNameName" pattern="[a-zA-Z][a-zA-Z\s]*" required name="captainname" placeholder="Caption Name" class="form-control" autofocus>
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label for="Contact" class="col-sm-3 control-label"> Contact No</label>
+                    <div class="col-sm-9">
+                        <input type="Tel" name="mobileno" pattern="[0][3][0-9]{9}$" required id="contact" placeholder=" Contact No" class="form-control">
+                    </div>
+                </div>
+						<center>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary btn-block">Apply</button>
+                    </div>
+                </div>
+				</center>
+                </div>
+            </form> <!-- /form -->
+</center>
+        </div> <!-- ./container -->
+<br><br><br>
+{% endblock %}

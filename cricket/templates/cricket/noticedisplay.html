@@ -1,0 +1,45 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Event{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/event-display.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% endblock %}
+{% block content %}
+<br><br><br><br><br><br><br>
+ <div class="container">
+ <div class="table-responsive"> 
+ 
+
+<center> 
+  <h2>Notice Posted By Admin</h2>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{% if notice %}
+ <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="20%" >Title</th>
+        <th width="80%" >Description</th>
+      </tr>
+    </thead>
+     {% for select in notice %}
+    <tbody>
+    <tr>
+        <td>{{select.title}}</td>
+        <td>{{select.notice}}</td>
+      </tr>
+	</tbody>
+     {% endfor %}
+</table>
+{% endif %}
+</center>
+  </div>
+  </div>
+
+<br><br><br><br><br><br><br>
+{% endblock %}

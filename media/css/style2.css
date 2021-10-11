@@ -1,0 +1,27 @@
+
+body, html{
+
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-image: url("/static/images/registration.jpg");
+ 	font-family: 'Oxygen', sans-serif;
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;tr:nth-child(even) {
+  }

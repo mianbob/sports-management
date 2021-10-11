@@ -1,0 +1,108 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Approval Page{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/teamapproval.css' %}">
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+ <script>
+
+ $(document).ready(function(){
+ $("#approverejectdiv").on("click" ,".approve", function(){
+        var teamname = $(this).val();
+      $.ajax({
+        url: '/cricket/approval/',
+        data: {
+          'teamname': teamname,
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("success");
+            window.location.reload();
+            alert("Club Is Approved For This Event");
+        }
+      });
+
+    });
+
+    });
+
+
+$(document).ready(function(){
+ $("#approverejectdiv").on("click" ,".reject", function(){
+        var teamname = $(this).val();
+      $.ajax({
+        url: '/cricket/rejection/',
+        data: {
+          'teamname': teamname
+        },
+        dataType: 'json',
+        success: function (data) {
+        console.log("success");
+            window.location.reload();
+            alert("Club Is Rejected For This Event");
+        }
+      });
+
+    });
+    });
+
+  </script>
+{% endblock %}
+
+{% block content %}
+
+ <div class="container height">
+ <div class="table-responsive" id="thisdiv">
+
+
+<center>
+  <h2>Registered Teams</h2>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <table class="table-hover" id="approverejectdiv">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="5%"><center>#</center></th>
+		        <th width="20%"><center>Team Name</center></th>
+				<th width= "5%"><center>Approve</center></th>
+				<th width="5%"><center>Reject</center></th>
+				</tr>
+{% if allteams %}
+				<tbody>
+
+{% for select in allteams %}
+    <tr>
+	<td><center>{{select.id}}</center></td>
+        <td><center><h3 class="teamname">{{select.teamid.teamname}}</h3></center></td>
+		<td>
+		<div class="form-group">
+  <label class="col-md-2 control-label" for="approvereject"></label>
+  <div class="col-md-12">
+    <button name="approve" value="{{select.teamid.teamname}}" class="btn btn-success approve" type="button">Approve</button>
+
+  </div>
+</div></td>
+	<td>
+		<div class="form-group">
+  <label class="col-md-2 control-label" for="approvereject"></label>
+  <div class="col-md-10">
+  <button name="reject" class="btn btn-danger reject" value="{{select.teamid.teamname}}">Reject</button>
+
+  </div>
+</div></td>
+</tr>
+{% endfor %}
+</tbody>
+     {% endif %}
+ </table>
+
+</center>
+
+ </div>
+ </div>
+{% endblock %}

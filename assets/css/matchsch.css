@@ -1,0 +1,35 @@
+
+
+*[role="form"] {
+    max-width: 900px;
+	margin-top:30px;
+    margin-bottom:30px;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.3em;
+}
+
+*[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+}
+
+body, html{
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-color:white;
+ 	font-family: 'Oxygen', sans-serif;
+	    background-size: cover;
+width: 100%;
+
+
+}
+
+
+hr.style5 {
+	color: #f00;
+background-color: grey;
+height: 5px;
+	
+}

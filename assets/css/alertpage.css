@@ -1,0 +1,24 @@
+{% load static %}
+*[role="form"] {
+    max-width: 630px;
+	max-height:800px;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 0.3em;
+}
+
+*[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+}
+
+body, html{
+
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background-image: url("/static/images/404.png");
+ 	font-family: 'Oxygen', sans-serif;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}

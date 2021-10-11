@@ -1,0 +1,44 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block title %}Event{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/event-display.css' %}">
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+{% endblock %}
+{% block content %}
+ <div class="container">
+ <div class="table-responsive"> 
+ 
+
+<center> 
+  <h2>Notifications For You</h2>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{% if notifications %}
+ <table class="table-hover ">
+    <thead>
+      <tr>
+	   <tr class="active">
+        <th width="20%" >Title</th>
+        <th width="80%" >Description</th>
+      </tr>
+    </thead>
+     {% for select in notifications %}
+    <tbody>
+    <tr>
+        <td>{{select.title}}</td>
+        <td>{{select.notification}}</td>
+      </tr>
+	</tbody>
+     {% endfor %}
+</table>
+{% endif %}
+</center>
+  </div>
+  </div>
+
+
+{% endblock %}
