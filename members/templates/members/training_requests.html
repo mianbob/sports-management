@@ -16,26 +16,27 @@
 
 
 <center>
-  <h2>Queries For You</h2>
+<br><br><br><br><br><br><br><br><br>
+  <h2>Training Requests</h2>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-{% if queries %}
+{% if training %}
  <table class="table-hover ">
     <thead>
       <tr>
 	   <tr class="active">
         <th width="20%" >Name</th>
-          <th width="20%" >Subject</th>
-          <th width="20%" >Email</th>
-        <th width="40%" >Description</th>
+          <th width="20%" >Contact No</th>
+          <th width="20%" >Age</th>
+        <th width="40%" >Type</th>
       </tr>
     </thead>
-     {% for select in queries %}
+     {% for train in training %}
     <tbody>
     <tr>
-        <td>{{select.name}}</td>
-        <td>{{select.subject}}</td>
-        <td>{{select.email}}</td>
-        <td>{{select.query}}</td>
+        <td>{{train.name}}</td>
+        <td>{{train.contactno}}</td>
+        <td>{{train.age}}</td>
+        <td>{{train.type}}</td>
       </tr>
 	</tbody>
      {% endfor %}
@@ -46,5 +47,5 @@
   </div>
 
 <br><br><br>
-
+<br><br><br>
 {% endblock %}

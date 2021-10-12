@@ -9,7 +9,7 @@ class Participant(models.Model):
     playerimage = models.ImageField(upload_to='playersimage', null=True)
 
     class Meta:
-        verbose_name_plural = 'Participant'
+        verbose_name_plural = 'Participants'
 
     def __str__(self):
         return '%s%s%s' % (self.name, self.age, self.speciality)
@@ -28,7 +28,7 @@ class CricketTeam(models.Model):
     coach = models.CharField(max_length=32)
 
     class Meta:
-        verbose_name_plural = 'CricketTeam'
+        verbose_name_plural = 'CricketTeams'
 
     def __str__(self):
         return '%s%s' % (self.contactno, self.captain_name)
@@ -38,8 +38,6 @@ class Training(models.Model):
     age = models.IntegerField(default=0)
     contactno = models.IntegerField(default=0)
     type=models.CharField(max_length=10)
-    class Meta:
-        verbose_name_plural = 'Training'
 
     def __str__(self):
         return self.name

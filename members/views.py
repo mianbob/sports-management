@@ -9,7 +9,7 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from django.contrib.auth import logout
 import time
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test,login_required
 from django.contrib import messages
 
 
@@ -371,6 +371,35 @@ def updateprofile(request):
 
     return redirect('members:teamprofile')
 
+def training_signup(request):
+    if request.method == "POST":
+        name = request.POST['username']
+        age = request.POST['age']
+        mobileno = request.POST['mobileno']
+        type = request.POST['type']
+
+        try:
+
+            train = Training.objects.create(
+                name=name, age=age, contactno=mobileno, type=type)
+            train.save()
+            return redirect('members:home')
+        except:
+            context = {
+                'alertmessage': "Sorry Email Address Already Exists"
+            }
+            return render(request, 'members/home.html', context)
+    else:
+        return render(request, 'members/home.html')
+
+@login_required
+def training_requests(request):
+    training = Training.objects.all()
+    context = {
+        'training': training
+    }
+    return render(request, 'members/training_requests.html', context)
+    
 
 def scorersignup(request):
     if request.method == "POST":
