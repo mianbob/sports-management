@@ -373,15 +373,16 @@ def updateprofile(request):
 
 def training_signup(request):
     if request.method == "POST":
-        name = request.POST['username']
+        name = request.POST['name']
         age = request.POST['age']
+        batch = request.POST['batch']
+        roll_number = request.POST['roll_number']
+        section = request.POST['section']
         mobileno = request.POST['mobileno']
         type = request.POST['type']
-
         try:
-
             train = Training.objects.create(
-                name=name, age=age, contactno=mobileno, type=type)
+                name=name, age=age, contactno=mobileno, type=type, batch=batch, roll_number=roll_number, section=section)
             train.save()
             return redirect('members:home')
         except:

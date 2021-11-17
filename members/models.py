@@ -37,7 +37,11 @@ class Training(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField(default=0)
     contactno = models.IntegerField(default=0)
+    batch = models.CharField(max_length=100, default=0)
+    roll_number = models.CharField(max_length=100, default=0)
+    section = models.CharField(max_length=100, default=0)
     type=models.CharField(max_length=10)
+
 
     def __str__(self):
         return self.name

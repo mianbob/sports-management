@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/hamza/Downloads/Practice/sportsProject/env"
+VIRTUAL_ENV="/home/hamza/Downloads/Practice/sports-management/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
